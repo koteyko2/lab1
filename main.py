@@ -1,68 +1,69 @@
-"""Snake, classic arcade game.
-Exercises
-1. How do you make the snake faster or slower?
-2. How can you make the snake go around the edges?
-3. How would you move the food?
-4. Change the snake to respond to mouse clicks2343.
-"""
+while True:
 
-from random import randrange
-from turtle import *
+    number = int(input('Задача : '))
+    if number == 1:
 
-from freegames import square, vector
+        lower = False
+        numeric = False
+        specs = False
+        lenght = False
 
-food = vector(0, 0)
-snake = [vector(10, 0)]
-aim = vector(0, -10)
+        password = input('Введите пароль : ')
 
+        for dig in password:
+            if dig.isnumeric():
+                numeric = True
+            if dig.islower():
+                lower = True
+            if len(password) >= 6:
+                lenght = True
+            if dig in '&*%$#№@':
+                specs = True
 
-def change(x, y):
-    """Change snake direction."""
-    aim.x = x
-    aim.y = y
+        if numeric is True and lower is True and lenght is True and specs is True:
+            print('Пароль принят!')
+        else:
+            print('Пароль не надёжен!')
 
+    elif number == 2:
+        place = int(input('Номер вагона : '))
 
-def inside(head):
-    """Return True if head inside boundaries."""
-    return -200 < head.x < 190 and -200 < head.y < 190
+        if place > 52:
+            print('Несуществующий вагон!')
+        elif place % 2 == 0:
+            print('Верхнее')
+        elif place % 2 != 0:
+            print('Нижнее')
+        elif 37 <= place <= 52:
+            print('Боковое')
 
+    elif number == 3:
+        year = int(input('Год : '))
 
-def move():
-    """Move snake forward one segment."""
-    head = snake[-1].copy()
-    head.move(aim)
+        if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+            print(f'Год {year} - високосный')
+        else:
+            print('Этот год не високосный')
 
-    if not inside(head) or head in snake:
-        square(head.x, head.y, 9, 'red')
-        update()
-        return
+    elif number == 4:
+        color_1 = input('Первый цвет : ')
+        color_2 = input('Второй цвет : ')
 
-    snake.append(head)
+        if (color_1 == 'красный' and color_2 == 'синий') or (color_2 == 'красный' and color_1 == 'синий'):
+            print('Фиолетовый')
+        elif (color_1 == 'красный' and color_2 == 'желтый') or (color_2 == 'красный' and color_1 == 'желтый'):
+            print('Оранжевый')
+        elif (color_1 == 'желтый' and color_2 == 'синий') or (color_2 == 'желтый' and color_1 == 'синий'):
+            print('Зеленый')
+        else:
+            print('Неверно введен цвет!')
 
-    if head == food:
-        print('Snake:', len(snake))
-        food.x = randrange(-15, 15) * 10
-        food.y = randrange(-15, 15) * 10
-    else:
-        snake.pop(0)
+    elif number == 5:
+        n = int(input('Кол-во слов : '))
+        all_words = ''
 
-    clear()
+        for i in range(n):
+            word = input()
+            all_words += word + ' '
 
-    for body in snake:
-        square(body.x, body.y, 9, 'black')
-
-    square(food.x, food.y, 9, 'green')
-    update()
-    ontimer(move, 100)
-
-
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
-listen()
-onkey(lambda: change(10, 0), 'Right')
-onkey(lambda: change(-10, 0), 'Left')
-onkey(lambda: change(0, 10), 'Up')
-onkey(lambda: change(0, -10), 'Down')
-move()
-done()
+        print(all_words)
